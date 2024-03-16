@@ -47,7 +47,7 @@ export default {
     },
     methods: {
         handleSubmit() {
-            console.log('Received values of form: ', this.form);
+            this.loading = true;
             Api.user.loginWithEmail(this.form.email, this.form.password)
                 .then((res) => {
                     if (res.code == 0) {
