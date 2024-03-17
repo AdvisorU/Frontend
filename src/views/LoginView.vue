@@ -54,7 +54,6 @@ export default {
                         this.$router.push({ path: "/" });
                     } else {
                         this.loading = false;
-                        this.$message.error(res.message);
                     }
                 })
                 .catch((err) => {

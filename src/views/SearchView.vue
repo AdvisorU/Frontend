@@ -12,7 +12,7 @@ export default {
 
 <style scoped>
 main {
-    height: 100%;
+    flex: auto;
     display: flex;
     justify-content: center;
     align-items: center;

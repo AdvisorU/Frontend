@@ -1,7 +1,7 @@
 <template>
 	<main>
 		<header>
-			<div class="logo">LOGO</div>
+			<div class="logo">AdvisorU</div>
 			<div class="user-info">
 				<div v-if="userProfile?.profile">
 					<a-avatar :size="32">
@@ -20,24 +20,25 @@
 		<div class="content">
 			<div class="tabs">
 				<div class="switcher">
-					<!-- 页面切换不要存进历史 -->
 					<a :class="{ active: $route.path === '/' }" @click="$router.replace('/')">Search</a>
 					<a :class="{ active: $route.path === '/chat' }" @click="$router.replace('/chat')">Chat</a>
 				</div>
 				<router-view />
 			</div>
-			<div class="course-table">
-				<h1>CourseTable</h1>
-			</div>
+			<CourseTable class="course-table" />
 		</div>
 	</main>
 </template>
 
 <script>
-import { useUserProfile } from "@/stores/user_profile";
+import { useUserProfile } from "@/stores/user_profile"
+import CourseTable from '@/components/course_table/CourseTable.vue'
 
 export default {
 	name: 'HomeView',
+	components: {
+		CourseTable,
+	},
 	data() {
 		return {
 			userProfile: useUserProfile(),
@@ -53,6 +54,7 @@ export default {
 main {
 	display: flex;
 	flex-direction: column;
+	overflow: hidden;
 }
 
 header {
@@ -68,6 +70,11 @@ header {
 	z-index: 100;
 }
 
+header>.logo {
+	font-size: 24px;
+	font-weight: 600;
+}
+
 header>.user-info>div>*:not(:last-child) {
 	margin-right: 8px;
 }
@@ -77,41 +84,41 @@ header>.user-info>div>*:not(:last-child) {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
+	overflow: hidden;
 }
 
 .content>.tabs {
 	width: 40%;
-	height: 100%;
 	display: flex;
 	flex-direction: column;
-    background: #f0f0f0;
+	background: #f0f0f0;
 }
 
 .content>.tabs>.switcher {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
 }
 
 .content>.tabs>.switcher a {
-  flex: 1;
-  text-align: center;
-  padding: 10px;
-  font-size: 16px;
-  color: grey;
-  text-decoration: none;
+	flex: 1;
+	text-align: center;
+	padding: 10px;
+	font-size: 16px;
+	color: grey;
+	text-decoration: none;
+	border-bottom: 2px solid transparent;
+	cursor: pointer;
+	transition: all 0.1s ease-in-out;
+}
+
+.content>.tabs>.switcher a:hover {
+	color: #0073ff;
+	background: lightgray;
 }
 
 .content>.tabs>.switcher a.active {
-  color: #0073ff;
-  border-bottom: 2px solid #0073ff;
-}
-
-.content>.course-table {
-	flex: auto;
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	color: #0073ff;
+	border-bottom: 2px solid #0073ff;
 }
 </style>
