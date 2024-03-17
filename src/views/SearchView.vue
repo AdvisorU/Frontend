@@ -23,23 +23,27 @@ export default {
     },
     mounted() {
         Api.course.list("", "", 0, 10).then(res => {
-            res.data.forEach(course => {
-                this.data.push(`${course.major.short_name}${course.number} ${course.name} <br/> credit_hours: ${course.credit_hours} <br/> prerequisites: ${course.prerequisites} <br/> corequisites: ${course.corequisites}`);
-            });
-        });
+            if (res.code == 0) {
+                res.data.forEach(course => {
+                    this.data.push(`${course.major.short_name}${course.number} ${course.name} <br/> credit_hours: ${course.credit_hours} <br/> prerequisites: ${course.prerequisites} <br/> corequisites: ${course.corequisites}`)
+                })
+            }
+        })
     },
     methods: {
         onSearch() {
-            console.log('onSearch:', this.search);
+            console.log('onSearch:', this.search)
             Api.course.list("", this.search, 0, 10).then(res => {
-                this.data = [];
-                res.data.forEach(course => {
-                    this.data.push(`${course.major.short_name}${course.number} ${course.name} <br/> credit_hours: ${course.credit_hours} <br/> prerequisites: ${course.prerequisites} <br/> corequisites: ${course.corequisites}`);
-                });
-            });
+                if (res.code == 0) {
+                    this.data = []
+                    res.data.forEach(course => {
+                        this.data.push(`${course.major.short_name}${course.number} ${course.name} <br/> credit_hours: ${course.credit_hours} <br/> prerequisites: ${course.prerequisites} <br/> corequisites: ${course.corequisites}`)
+                    })
+                }
+            })
         },
     },
-};
+}
 </script>
 
 <style scoped>

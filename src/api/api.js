@@ -1,3 +1,4 @@
+import chat from "./chat";
 import course from "@/api/course"
 import user from "@/api/user"
 
@@ -23,6 +24,7 @@ export const defaultCallback = {
 }
 
 export const Api = {
+    chat,
     course,
     user
 }
