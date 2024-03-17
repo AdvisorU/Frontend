@@ -39,14 +39,6 @@ export default {
             });
         },
     },
-    watch: {
-        search: {
-            handler() {
-                this.onSearch();
-            },
-            immediate: true,
-        },
-    },
 };
 </script>
 

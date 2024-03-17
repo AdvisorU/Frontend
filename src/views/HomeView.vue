@@ -20,8 +20,8 @@
 		<div class="content">
 			<div class="tabs">
 				<div class="switcher">
-					<a :class="{ active: $route.path === '/' }" @click="$router.replace('/')">Search</a>
-					<a :class="{ active: $route.path === '/chat' }" @click="$router.replace('/chat')">Chat</a>
+					<a :class="{ active: $route.path === '/' }" @click="$router.replace('/')">Chat</a>
+					<a :class="{ active: $route.path === '/search' }" @click="$router.replace('/search')">Search</a>
 				</div>
 				<router-view />
 			</div>

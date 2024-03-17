@@ -125,7 +125,7 @@ main {
 }
 
 .message.user {
-    background-color: #f0f0f0;
+    background-color: white;
     text-align: right;
     align-self: flex-end;
     color: #007bff;
