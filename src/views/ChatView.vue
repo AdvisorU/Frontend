@@ -1,7 +1,18 @@
 <template>
     <main>
         <div class="history">
-            <h1>ChatHistory</h1>
+            <div class="message user">
+                <p>Hi! I am a computer science student! What courses should I take for my first semester</p>
+            </div>
+            <div class="message advisor">
+                <p>You should take the following courses: CS1800, CS1802, CS2500, CS2501, MATH1365, ENGW1111</p>
+            </div>
+            <div class="message user">
+                <p>Could I not take MATH1365 and switch it up with something else?</p>
+            </div>
+            <div class="message advisor">
+                <p>Yes, you are welcome to take MATH 1341 with the rest. You will be take the following courses: CS1800, CS1802, CS2500, CS2501, MATH1341, ENGW1111.</p>
+            </div>
         </div>
         <div class="input">
             <div class="wrapper">
@@ -52,6 +63,8 @@ main {
     flex: auto;
     display: flex;
     flex-direction: column;
+    margin: auto;
+    overflow: auto;
 }
 
 .input {
@@ -92,4 +105,35 @@ main {
 .input>.wrapper>.send {
     margin: 12px;
 }
+
+.message {
+    max-width: 90%;
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    border-radius: 18px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    line-height: 1.4;
+    position: relative;
+    word-wrap: break-word;
+}
+
+.message.advisor {
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: white;
+    align-self: flex-start;
+}
+
+.message.user {
+    background-color: #f0f0f0;
+    text-align: right;
+    align-self: flex-end;
+    color: #007bff;
+}
+
+.message p {
+    margin: 0;
+    padding: 0;
+}
+
 </style>
