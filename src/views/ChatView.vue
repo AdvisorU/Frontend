@@ -5,13 +5,13 @@
             <p>{{ chat.title || "New chat" }}</p>
         </div>
         <div class="history">
-            <Message v-for="message in messages" :key="message.id" :message="message.message" :type="message.type" />
+            <Message v-for="message in messages" :key="message.id" :message="message.content" :type="message.role" />
         </div>
         <div class="input">
             <div class="wrapper">
-                <textarea type="text" placeholder="Type a message" autofocus rows="1" ref="input"></textarea>
+                <textarea type="text" placeholder="Type a message" autofocus rows="1" ref="input" v-model="input"></textarea>
                 <div class="send">
-                    <a-button type="primary">
+                    <a-button type="primary" :disabled="input.trim() === ''" @click="sendMessage">
                         <template #icon>
                             <SendOutlined />
                         </template>
@@ -19,6 +19,9 @@
                 </div>
             </div>
             <div class="background"></div>
+        </div>
+        <div v-if="loading_chat_info || loading_chat_comments" class="loading">
+            <a-spin tip="Loading..." />
         </div>
     </main>
 </template>
@@ -37,23 +40,35 @@ export default {
     },
     data() {
         return {
+            input: '',
             chat: {},
             messages: [],
+            loading_chat_info: true,
+            loading_chat_comments: true,
         };
     },
     mounted() {
         this.resizeTextarea()
         this.$refs.input.addEventListener('input', this.resizeTextarea)
+        this.$refs.input.addEventListener('keydown', e => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault()
+                this.sendMessage()
+            }
+        })
 
         Api.chat.index.get(this.$route.params.id).then(res => {
+            this.loading_chat_info = false
             if (res.code == 0) {
                 this.chat = res.data
             }
         })
         
-        Api.chat.comment.get(this.$route.params.id, 0, 10).then(res => {
+        Api.chat.comment.get(this.$route.params.id, 0, 100).then(res => {
+            this.loading_chat_comments = false
             if (res.code == 0) {
                 this.messages = res.data
+                console.log(this.messages)
             }
         })
     },
@@ -61,6 +76,24 @@ export default {
         resizeTextarea() {
             this.$refs.input.style.height = 'auto';
             this.$refs.input.style.height = (this.$refs.input.scrollHeight + 3) + 'px'
+        }, 
+        sendMessage() {
+            if (this.input.trim() === '') return
+
+            this.messages.push({
+                content: this.input,
+                role: 'USER',
+            })
+
+            Api.chat.comment.post(this.$route.params.id, this.input).then(res => {
+                if (res.code == 0) {
+                    this.messages.push(res.data)
+                    this.resizeTextarea()
+                }
+            })
+            
+            this.input = ''
+            setTimeout(this.resizeTextarea, 50)
         }
     }
 }
@@ -68,6 +101,7 @@ export default {
 
 <style scoped>
 main {
+    position: relative;
     flex: auto;
     display: flex;
     justify-content: center;
@@ -152,5 +186,17 @@ main {
     top: -18%;
     left: 0;
     background: linear-gradient(0deg, #f0f0f0 40%, transparent);
+}
+
+.loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.5);
 }
 </style>

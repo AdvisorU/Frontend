@@ -1,13 +1,13 @@
 <template>
     <div class="course">
-        <p class="course-code">{{ courseCode }}</p>
-        <p class="course-name">{{ courseName }}</p>
+        <p class="course-code">{{ `${course.major} ${course.number || ""}` }}</p>
+        <p class="course-name">{{ course?.name }}</p>
     </div>
 </template>
 
 <script>
 export default {
-    props: ['courseCode', 'courseName']
+    props: ['course']
 }
 </script>
 

@@ -15,6 +15,7 @@ export default {
 
 <style scoped>
 .term {
+    width: 240px;
     border: 1px solid #007bff;
     border-radius: 7px;
     padding: 17px 12px 15px 12px;

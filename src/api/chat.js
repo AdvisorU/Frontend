@@ -5,6 +5,13 @@ export const commentGet = (id, offset, limit) => {
     return get(`${baseUrl}/chat/comment?id=${id}&offset=${offset}&limit=${limit}`, defaultCallback)
 }
 
+export const commentPost = (id, content) => {
+    return post(`${baseUrl}/chat/comment/`, {
+        id, 
+        content
+    }, defaultCallback)
+}
+
 export const indexGet = (id) => {
     return get(`${baseUrl}/chat/?id=${id}`, defaultCallback)
 }
@@ -19,7 +26,8 @@ export const list = (offset, limit) => {
 
 export default {
     comment: {
-        get: commentGet
+        get: commentGet,
+        post: commentPost
     },
     index: {
         get: indexGet, 

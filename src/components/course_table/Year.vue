@@ -1,6 +1,6 @@
 <template>
     <div class="year">
-        <h2>Year {{ year }}</h2>
+        <h2>{{ year }}</h2>
         <div class="terms">
             <slot></slot>
         </div>
@@ -30,5 +30,6 @@ h2 {
     flex-direction: row;
     gap: 16px;
     margin: 16px 8px;
+    overflow-x: auto;
 }
 </style>

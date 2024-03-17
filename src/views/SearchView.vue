@@ -6,6 +6,9 @@
                 <a-list-item v-html="item"></a-list-item>
             </template>
         </a-list>
+        <div v-if="loading_search_list" class="loading">
+            <a-spin tip="Loading..." />
+        </div>
     </main>
 </template>
 
@@ -16,13 +19,14 @@ export default {
     name: 'SearchView',
     data() {
         return {
-            data: [
-            ],
+            data: [],
             search: '',
+            loading_search_list: true,
         };
     },
     mounted() {
-        Api.course.list("", "", 0, 10).then(res => {
+        Api.course.list("", "", 0, 100).then(res => {
+            this.loading_search_list = false
             if (res.code == 0) {
                 res.data.forEach(course => {
                     this.data.push(`${course.major.short_name}${course.number} ${course.name} <br/> credit_hours: ${course.credit_hours} <br/> prerequisites: ${course.prerequisites} <br/> corequisites: ${course.corequisites}`)
@@ -33,7 +37,9 @@ export default {
     methods: {
         onSearch() {
             console.log('onSearch:', this.search)
-            Api.course.list("", this.search, 0, 10).then(res => {
+            this.loading_search_list = true
+            Api.course.list("", this.search, 0, 100).then(res => {
+                this.loading_search_list = false
                 if (res.code == 0) {
                     this.data = []
                     res.data.forEach(course => {
@@ -48,6 +54,7 @@ export default {
 
 <style scoped>
 main {
+    position: relative;
     flex: auto;
     display: flex;
     align-items: center;
@@ -66,5 +73,17 @@ main {
 .ant-list-item {
     padding: 12px 24px;
     border-bottom: 1px solid #898282;
+}
+
+.loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.5);
 }
 </style>

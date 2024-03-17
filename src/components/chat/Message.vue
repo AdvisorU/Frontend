@@ -23,7 +23,7 @@ export default {
     word-wrap: break-word;
 }
 
-.message.ai {
+.message.ASSISTANT {
     background: linear-gradient(to right, #6a11cb, #2575fc);
     color: white;
     align-self: flex-start;
@@ -31,7 +31,7 @@ export default {
     border-radius: 18px 18px 18px 0;
 }
 
-.message.human {
+.message.USER {
     background-color: white;
     align-self: flex-end;
     color: #007bff;

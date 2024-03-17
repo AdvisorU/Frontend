@@ -25,7 +25,7 @@
 				</div>
 				<router-view />
 			</div>
-			<CourseTable class="course-table" />
+			<CourseTable class="course-table" :plan="plan" />
 		</div>
 	</main>
 </template>
@@ -33,6 +33,7 @@
 <script>
 import { useUserProfile } from "@/stores/user_profile"
 import CourseTable from '@/components/course_table/CourseTable.vue'
+import bscs_plansofstudy from "@/assets/bscs_plansofstudy";
 
 export default {
 	name: 'HomeView',
@@ -42,7 +43,8 @@ export default {
 	data() {
 		return {
 			userProfile: useUserProfile(),
-		};
+			plan: bscs_plansofstudy, 
+		}
 	},
 	mounted() {
 		this.userProfile.fetchAndSetUserProfile()
