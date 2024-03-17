@@ -1,3 +1,4 @@
+import course from "@/api/course"
 import user from "@/api/user"
 
 import { message } from 'ant-design-vue';
@@ -22,5 +23,6 @@ export const defaultCallback = {
 }
 
 export const Api = {
+    course,
     user
 }
